@@ -15,6 +15,27 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    /* ホーム画面アプリ（iOS 27）で、画面の高さが実際より短く報告され
+       下に余白ができる不具合への対策：画面いっぱいの高さを使う */
+    (function () {
+      var root = document.documentElement;
+      var standalone = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+      if (!standalone) return;
+      root.classList.add('standalone');
+      function fit() {
+        var portrait = innerHeight >= innerWidth;
+        var full = portrait ? Math.max(screen.height, screen.width) : Math.min(screen.height, screen.width);
+        var h = innerHeight;
+        // 実画面との差が小さいとき（＝ステータスバー分ずれているとき）だけ実画面の高さに合わせる
+        if (full > h && full - h <= 140) h = full;
+        root.style.setProperty('--app-h', h + 'px');
+      }
+      fit();
+      addEventListener('resize', fit);
+      addEventListener('orientationchange', function () { setTimeout(fit, 300); });
+    })();
+  </script>
 </head>
 <body>
   <div id="app">
