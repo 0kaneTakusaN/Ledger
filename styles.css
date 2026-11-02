@@ -48,8 +48,6 @@ svg.ic { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-wid
 .num { font-family: var(--num); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 
 #app { position: fixed; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
-/* ホーム画面アプリでは、報告された表示領域ではなく実画面の高さいっぱいに広げる */
-html.standalone #app { top: 0; bottom: auto; height: var(--app-h, 100lvh); }
 #views { position: relative; flex: 1; min-height: 0; }
 .view {
   position: absolute; inset: 0;
@@ -196,7 +194,7 @@ html.standalone #app { top: 0; bottom: auto; height: var(--app-h, 100lvh); }
 .cal-week span:last-child { color: var(--sat); }
 .cal-grid {
   display: grid; grid-template-columns: repeat(7, 1fr); grid-auto-rows: 1fr;
-  padding: 0 6px; flex: 0 0 auto; height: min(56dvh, 540px);
+  padding: 0 6px; flex: 0 0 auto; height: min(52dvh, 520px);
   touch-action: pan-y;
 }
 .cal-cell {
@@ -288,7 +286,7 @@ html.standalone #app { top: 0; bottom: auto; height: var(--app-h, 100lvh); }
 .sheet-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.55); opacity: 0; transition: opacity .25s; }
 .sheet {
   position: absolute; left: 0; right: 0; bottom: 0; margin: 0 auto; max-width: var(--maxw);
-  max-height: calc(var(--app-h, 100dvh) - var(--safe-t) - 18px);
+  max-height: calc(100dvh - var(--safe-t) - 18px);
   background: var(--surface); border-radius: 22px 22px 0 0; border-top: 1px solid var(--line-strong);
   transform: translateY(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1);
   display: flex; flex-direction: column;

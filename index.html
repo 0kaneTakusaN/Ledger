@@ -16,8 +16,8 @@
   <link rel="icon" type="image/png" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
   <script>
-    /* ホーム画面アプリ（iOS 27）で、画面の高さが実際より短く報告され
-       下に余白ができる不具合への対策：画面いっぱいの高さを使う */
+    /* ホーム画面アプリ（iOS 27）では画面下の約60ptがiOSに確保され、描画されない。
+       そのときはホームバーもその中に入るため、タブバー下のホームバー用余白を消す */
     (function () {
       var root = document.documentElement;
       var standalone = navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
@@ -26,10 +26,9 @@
       function fit() {
         var portrait = innerHeight >= innerWidth;
         var full = portrait ? Math.max(screen.height, screen.width) : Math.min(screen.height, screen.width);
-        var h = innerHeight;
-        // 実画面との差が小さいとき（＝ステータスバー分ずれているとき）だけ実画面の高さに合わせる
-        if (full > h && full - h <= 140) h = full;
-        root.style.setProperty('--app-h', h + 'px');
+        var gap = full - innerHeight;
+        if (gap >= 20 && gap <= 140) root.style.setProperty('--safe-b', '0px');
+        else root.style.removeProperty('--safe-b');
       }
       fit();
       addEventListener('resize', fit);

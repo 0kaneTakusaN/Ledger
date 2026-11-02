@@ -1,6 +1,6 @@
 // オフラインでも起動できるように、アプリ本体をキャッシュする
 // ファイルを更新したら VERSION の数字を上げると、iPhone側も新しい版に切り替わる
-const VERSION = 'ledger-v2';
+const VERSION = 'ledger-v3';
 const ASSETS = [
   './',
   './index.html',
